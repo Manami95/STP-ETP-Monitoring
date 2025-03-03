@@ -1,6 +1,6 @@
 "use client"
 
-import { Home, AlertTriangle, TrendingUp, FileText, Settings, Activity, Users, Building2 } from "lucide-react"
+import { Home, AlertTriangle, TrendingUp, FileText, Settings, Activity, Users, Building2, AlertCircle, BarChart3, LayoutDashboard, MessageSquare, Bell } from "lucide-react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
@@ -13,6 +13,8 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
+import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 const menuItems = [
   { icon: Home, label: "Dashboard", href: "/" },
@@ -21,7 +23,46 @@ const menuItems = [
   { icon: AlertTriangle, label: "Alerts", href: "/alerts" },
   { icon: TrendingUp, label: "Historical Data", href: "/historical-data" },
   { icon: FileText, label: "Reports", href: "/reports" },
+  { 
+    icon: MessageSquare, 
+    label: "Support Tickets", 
+    href: "/tickets",
+    iconExtra: Bell,
+  },
   { icon: Settings, label: "Settings", href: "/settings" },
+]
+
+export const sidebarLinks = [
+  {
+    title: "Dashboard",
+    href: "/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Clients",
+    href: "/clients",
+    icon: Building2,
+  },
+  {
+    title: "Alerts",
+    href: "/alerts",
+    icon: AlertCircle,
+  },
+  {
+    title: "Analytics",
+    href: "/analytics",
+    icon: BarChart3,
+  },
+  {
+    title: "Support Tickets",
+    href: "/tickets",
+    icon: MessageSquare,
+  },
+  {
+    title: "Settings",
+    href: "/settings",
+    icon: Settings,
+  },
 ]
 
 export function Sidebar() {
@@ -61,7 +102,12 @@ export function Sidebar() {
                 )}
               >
                 <Link href={item.href} className="flex items-center gap-2 p-2">
-                  <item.icon className="h-5 w-5" />
+                  <div className="relative">
+                    <item.icon className="h-5 w-5" />
+                    {item.iconExtra && (
+                      <item.iconExtra className="h-3 w-3 absolute -top-1 -right-1 text-blue-500" />
+                    )}
+                  </div>
                   <span>{item.label}</span>
                 </Link>
               </SidebarMenuButton>
